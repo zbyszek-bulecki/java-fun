@@ -36,6 +36,35 @@ public class App {
         }).start();
 
         while (true) {
+
+            try {
+                socketList.stream().filter(socket -> {
+                            try {
+                                return socket.getInputStream().available() > 0;
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .map(socket -> {
+                            try {
+                                return socket.getInputStream().read();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }).close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+//
+//            if (socketInputStream.available() > 0) {
+//                            System.out.println((char) socketInputStream.read());
+//                        }
+//                    } catch (IOException e) {
+//                        logger.log(Level.SEVERE, "No input stream available. {0}", e);
+//                        throw new RuntimeException(e);
+//                    };
+//            });
+
             socketList.forEach((socket -> {
                 InputStream socketInputStream = null;
                 try {
