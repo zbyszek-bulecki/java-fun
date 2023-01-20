@@ -55,15 +55,15 @@ public class App {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-//
-//            if (socketInputStream.available() > 0) {
-//                            System.out.println((char) socketInputStream.read());
-//                        }
-//                    } catch (IOException e) {
-//                        logger.log(Level.SEVERE, "No input stream available. {0}", e);
-//                        throw new RuntimeException(e);
-//                    };
-//            });
+
+            if (socketInputStream.available() > 0) {
+                            System.out.println((char) socketInputStream.read());
+                        }
+                    } catch (IOException e) {
+                        logger.log(Level.SEVERE, "No input stream available. {0}", e);
+                        throw new RuntimeException(e);
+                    };
+            });
 
             socketList.forEach((socket -> {
                 InputStream socketInputStream = null;
