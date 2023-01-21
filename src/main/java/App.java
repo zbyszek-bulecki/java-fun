@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 public class App {
 
     private static final String HOST = "127.0.0.1";
-    private static final int PORT = 8080;
-    private static final int BACKLOG = 0;
+    private static final int PORT = 3000;
+    private static final int BACKLOG = 8;
 
     public static void main(String[] args) throws IOException {
 
@@ -20,7 +20,7 @@ public class App {
         List<Socket> socketList = Collections.synchronizedList(new ArrayList<>()); //rozwiązanie 1, alternatywą może być concurrent list
 
         // jeżeli używamy kolekcji na wielu wątkach to trzeba zadbać o bezpieczeństwo dostępu współbierznego
-        ServerSocket serverSocket = new ServerSocket(PORT, BACKLOG, InetAddress.getByName(HOST));
+        ServerSocket serverSocket = new ServerSocket(PORT);
         logger.log(Level.INFO, "Listening on port {0} : {1} with a connection backlog of {2}", new Object[]{HOST, PORT, BACKLOG});
 
         new Thread(() -> {
