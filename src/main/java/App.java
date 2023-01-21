@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class App {
 
     private static final String HOST = "127.0.0.1";
-    private static final int PORT = 8080;
+    private static final int PORT = 3000;
     private static final int BACKLOG = 0;
 
     public static void main(String[] args) throws IOException {
@@ -55,16 +55,6 @@ public class App {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
-            if (socketInputStream.available() > 0) {
-                            System.out.println((char) socketInputStream.read());
-                        }
-                    } catch (IOException e) {
-                        logger.log(Level.SEVERE, "No input stream available. {0}", e);
-                        throw new RuntimeException(e);
-                    };
-            });
-
             socketList.forEach((socket -> {
                 InputStream socketInputStream = null;
                 try {
