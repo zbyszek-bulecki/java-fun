@@ -69,14 +69,11 @@ public class App {
                 InputStream socketInputStream = null;
                 try {
                     socketInputStream = socket.getInputStream();
+                    StringBuffer buffer = new StringBuffer();
                     if (socketInputStream.available() > 0) {
-                        StringBuilder buffer = new StringBuilder();
-                        while (socketInputStream.read() > 0) {
-                            buffer.append((char) socketInputStream.read());
+                        buffer.append(socketInputStream.read());
                         }
-                        System.out.println(buffer);
-//                         System.out.println((char) socketInputStream.read());
-                    }
+                    System.out.println(buffer);
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "No input stream available. {0}", e);
                     throw new RuntimeException(e);
