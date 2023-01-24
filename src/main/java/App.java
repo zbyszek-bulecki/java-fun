@@ -1,6 +1,5 @@
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,14 +65,11 @@ public class App {
 //            });
 
             socketList.forEach((socket -> {
-                InputStream socketInputStream = null;
                 try {
-                    socketInputStream = socket.getInputStream();
-                    StringBuffer buffer = new StringBuffer();
-                    if (socketInputStream.available() > 0) {
-                        buffer.append(socketInputStream.read());
-                        }
-                    System.out.println(buffer);
+                    while(socket.getInputStream().available() > 0){
+                    BufferedReader message = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    System.out.println(message.readLine());
+                    }
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "No input stream available. {0}", e);
                     throw new RuntimeException(e);
