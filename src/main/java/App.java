@@ -65,14 +65,17 @@ public class App {
 //            });
 
             socketList.forEach((socket -> {
-                try {
-                    while(socket.getInputStream().available() > 0){
-                    BufferedReader message = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    System.out.println(message.readLine());
+                while (true) {
+                    try {
+                        if (!(socket.getInputStream().available() > 0)) break;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "No input stream available. {0}", e);
-                    throw new RuntimeException(e);
+                    try (BufferedReader message = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                        System.out.println(message.readLine());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }));
         }
