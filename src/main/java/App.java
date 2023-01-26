@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.*;
 import java.net.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,14 +66,26 @@ public class App {
 //            });
 
             socketList.forEach((socket -> {
+
+                InputStreamReader roman;
+                BufferedReader zenon;
+
+                try (InputStreamReader ania = new InputStreamReader(socket.getInputStream())) {
+                    BufferedReader karolina = new BufferedReader(ania);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    roman = new InputStreamReader(socket.getInputStream());
+                    zenon = new BufferedReader(roman);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 while (true) {
                     try {
                         if (!(socket.getInputStream().available() > 0)) break;
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try (BufferedReader message = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-                        System.out.println(message.readLine());
+                        System.out.println(zenon.readLine());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
