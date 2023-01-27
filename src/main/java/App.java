@@ -55,37 +55,22 @@ public class App {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-//
-//            if (socketInputStream.available() > 0) {
-//                            System.out.println((char) socketInputStream.read());
-//                        }
-//                    } catch (IOException e) {
-//                        logger.log(Level.SEVERE, "No input stream available. {0}", e);
-//                        throw new RuntimeException(e);
-//                    };
-//            });
 
             socketList.forEach((socket -> {
 
-                InputStreamReader roman;
-                BufferedReader zenon;
-
-                try (InputStreamReader ania = new InputStreamReader(socket.getInputStream())) {
-                    BufferedReader karolina = new BufferedReader(ania);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                InputStreamReader inputStreamReader;
+                BufferedReader bufferedReader;
 
                 try {
-                    roman = new InputStreamReader(socket.getInputStream());
-                    zenon = new BufferedReader(roman);
+                    inputStreamReader = new InputStreamReader(socket.getInputStream());
+                    bufferedReader = new BufferedReader(inputStreamReader);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 while (true) {
                     try {
                         if (!(socket.getInputStream().available() > 0)) break;
-                        System.out.println(zenon.readLine());
+                        System.out.println(bufferedReader.readLine());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
