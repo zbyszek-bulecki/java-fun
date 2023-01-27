@@ -2,9 +2,11 @@ import java.io.IOException;
 import java.io.*;
 import java.net.*;
 import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +62,14 @@ public class App {
 
                 InputStreamReader inputStreamReader;
                 BufferedReader bufferedReader;
+                String hello = "Hello!";
+                Writer writer;
+                try {
+                    writer = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
 
                 try {
                     inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -70,7 +80,12 @@ public class App {
                 while (true) {
                     try {
                         if (!(socket.getInputStream().available() > 0)) break;
-                        System.out.println(bufferedReader.readLine());
+                        System.out.println("received: " + bufferedReader.readLine());
+                     //   if(Objects.equals(bufferedReader.readLine(), bufferedReader.readLine())){
+                            writer.write(hello);
+                            System.out.println("responded: " + hello);
+                            //TODO make sure to close the output stream
+                    //    }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
