@@ -85,6 +85,7 @@ public class App {
                             writer.write(hello);
                             System.out.println("responded: " + hello);
                             //TODO make sure to close the output stream
+                        //TODO figure out response
                     //    }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
