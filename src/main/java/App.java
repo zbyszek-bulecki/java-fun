@@ -62,10 +62,17 @@ public class App {
 
                 InputStreamReader inputStreamReader;
                 BufferedReader bufferedReader;
+                OutputStream outputStream;
                 String hello = "Hello!";
                 Writer writer;
                 try {
                     writer = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    outputStream = socket.getOutputStream();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -81,12 +88,13 @@ public class App {
                     try {
                         if (!(socket.getInputStream().available() > 0)) break;
                         System.out.println("received: " + bufferedReader.readLine());
-                     //   if(Objects.equals(bufferedReader.readLine(), bufferedReader.readLine())){
-                            writer.write(hello);
-                            System.out.println("responded: " + hello);
-                            //TODO make sure to close the output stream
+                        //   if(Objects.equals(bufferedReader.readLine(), bufferedReader.readLine())){
+                        writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+                        writer.write(hello);
+                        System.out.println("responded: " + hello);
+                        //TODO make sure to close the output stream
                         //TODO figure out response
-                    //    }
+                        //    }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
