@@ -58,26 +58,17 @@ public class App {
                 throw new RuntimeException(e);
             }
 
-            socketList.forEach((socket -> {
+            socketList.forEach(socket -> {
 
                 InputStreamReader inputStreamReader;
                 BufferedReader bufferedReader;
-                OutputStream outputStream;
-                String hello = "Hello!";
-                Writer writer;
+                PrintWriter printWriter;
+
                 try {
-                    writer = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                    printWriter = new PrintWriter(socket.getOutputStream(), true);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-                try {
-                    outputStream = socket.getOutputStream();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-
                 try {
                     inputStreamReader = new InputStreamReader(socket.getInputStream());
                     bufferedReader = new BufferedReader(inputStreamReader);
@@ -87,19 +78,19 @@ public class App {
                 while (true) {
                     try {
                         if (!(socket.getInputStream().available() > 0)) break;
-                        System.out.println("received: " + bufferedReader.readLine());
-                        //   if(Objects.equals(bufferedReader.readLine(), bufferedReader.readLine())){
-                        writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
-                        writer.write(hello);
-                        System.out.println("responded: " + hello);
-                        //TODO make sure to close the output stream
-                        //TODO figure out response
-                        //    }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    try {
+                        String s = bufferedReader.readLine();
+                        printWriter.print(s);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    //TODO make sure to close the output stream
                 }
-            }));
+            });
         }
     }
 }
