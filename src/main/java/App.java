@@ -81,12 +81,14 @@ public class App {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    String s;
                     try {
-                        String s = bufferedReader.readLine();
-                        printWriter.print(s);
+                        s = bufferedReader.readLine();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    printWriter.println(s);
+                    System.out.println(s);
 
                     //TODO make sure to close the output stream
                 }
