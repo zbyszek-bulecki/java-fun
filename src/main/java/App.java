@@ -63,6 +63,9 @@ public class App {
                 InputStreamReader inputStreamReader;
                 BufferedReader bufferedReader;
                 PrintWriter printWriter;
+                String call = "nya";
+                String response = "Hello cat! =^.^=";
+                String error = "Nope.";
 
                 try {
                     printWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -87,9 +90,15 @@ public class App {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    printWriter.println(s);
-                    System.out.println(s);
-
+                    if (s.equalsIgnoreCase(call)) {
+                        printWriter.println(response);
+                        System.out.println(s);
+                        System.out.println(response);
+                    } else {
+                        printWriter.println(error);
+                        System.out.println(s);
+                        System.out.println(error);
+                    }
                     //TODO make sure to close the output stream
                 }
             });
