@@ -5,6 +5,8 @@ public class TestClass {
     }
 }
 
+// Now it's time for the internal class ;-)
+
 class Animal {
     String name;
 
@@ -16,3 +18,14 @@ class Animal {
 	name = newName;
     }
 }
+
+/*
+* Multi
+* line*
+* comment
+* time */
+
+/**
+* It's Javadoc time!
+* @author Zbyszek
+*/
