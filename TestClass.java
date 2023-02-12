@@ -10,7 +10,11 @@ public class TestClass {
 class Animal {
     String name;
 
-    public String getName(){
+    public String 
+    /* A very
+    * shitty place
+    * for a multiline
+    * comment */ getName(){
 	return name;
     }
 
